@@ -17,44 +17,60 @@ class ViewController: UIViewController {
    let sadness = UIImageView(image: UIImage(named: "Sadness.png"))
    let fear = UIImageView(image: UIImage(named: "Fear.png"))
    let disgust = UIImageView(image: UIImage(named: "Disgust.png"))
+   var moviePosters: [UIView] = []
    
    override func viewDidLoad() {
       super.viewDidLoad()
       view.removeConstraints(view.constraints)
       view.translatesAutoresizingMaskIntoConstraints = false
+      moviePosters = [sadness, joy, fear, disgust, anger]
       setupScrollView()
+      setUpStackView()
       addConstraints()
    }
    
+   override func viewDidAppear(animated: Bool) {
+      setScrollViewContentSize()
+   }
+   
    func addConstraints() {
-      moviePosterStackView.translatesAutoresizingMaskIntoConstraints = false
       moviePosterScrollView.translatesAutoresizingMaskIntoConstraints = false
       moviePosterScrollView.heightAnchor.constraintEqualToAnchor(view.heightAnchor).active = true
       moviePosterScrollView.widthAnchor.constraintEqualToAnchor(view.widthAnchor).active = true
+      
+      moviePosterStackView.translatesAutoresizingMaskIntoConstraints = false
+      fear.heightAnchor.constraintEqualToAnchor(view.heightAnchor).active = true
+      fear.widthAnchor.constraintEqualToAnchor(view.widthAnchor).active = true
    }
    
    func setupScrollView() {
       moviePosterScrollView.backgroundColor = UIColor.orangeColor()
       view.addSubview(moviePosterScrollView)
-      moviePosterScrollView.addSubview(setUpStackView())
+      moviePosterScrollView.pagingEnabled = true
    }
    
    func setUpStackView() -> UIStackView {
-      let moviePosters = [sadness, joy, fear, disgust, anger]
+      moviePosterStackView = UIStackView(arrangedSubviews: moviePosters)
+      moviePosterStackView.axis = .Horizontal
+      moviePosterStackView.distribution = .FillEqually
+      moviePosterScrollView.addSubview(moviePosterStackView)
+      return moviePosterStackView
+   }
+   
+   func setScrollViewContentSize() {
       var allContentWidths: CGFloat = 0
       for image in moviePosters {
          allContentWidths += image.frame.width
       }
       moviePosterScrollView.contentSize = CGSizeMake(allContentWidths, view.frame.height)
-      moviePosterStackView = UIStackView(arrangedSubviews: moviePosters)
-      moviePosterStackView.axis = .Horizontal
-      return moviePosterStackView
    }
    
    override func didReceiveMemoryWarning() {
       super.didReceiveMemoryWarning()
       // Dispose of any resources that can be recreated.
    }
+   
+   
    
    
 }
