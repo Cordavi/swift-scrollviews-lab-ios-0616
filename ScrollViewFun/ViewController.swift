@@ -49,12 +49,11 @@ class ViewController: UIViewController {
       moviePosterScrollView.pagingEnabled = true
    }
    
-   func setUpStackView() -> UIStackView {
+   func setUpStackView() {
       moviePosterStackView = UIStackView(arrangedSubviews: moviePosters)
       moviePosterStackView.axis = .Horizontal
       moviePosterStackView.distribution = .FillEqually
       moviePosterScrollView.addSubview(moviePosterStackView)
-      return moviePosterStackView
    }
    
    func setScrollViewContentSize() {
@@ -69,9 +68,5 @@ class ViewController: UIViewController {
       super.didReceiveMemoryWarning()
       // Dispose of any resources that can be recreated.
    }
-   
-   
-   
-   
 }
 
