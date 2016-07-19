@@ -44,7 +44,6 @@ class ViewController: UIViewController {
    }
    
    func setupScrollView() {
-      moviePosterScrollView.backgroundColor = UIColor.orangeColor()
       view.addSubview(moviePosterScrollView)
       moviePosterScrollView.pagingEnabled = true
    }
